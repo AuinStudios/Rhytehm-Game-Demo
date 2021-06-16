@@ -3,64 +3,127 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class crossborder : MonoBehaviour
-{
-    public bool test30;
+{ 
     public Score score;
     public Score comboscore;
-
-
-    // Update is called once per frame
-
-
-
-    public void FixedUpdate()
-    {
-        if(test30 == false && Input.GetKeyDown(KeyCode.D))
-        {
-            comboscore.score = 0;
-           
-        }
-        if (test30 == false && Input.GetKeyDown(KeyCode.F))
-        {
-            comboscore.score = 0;
-            
-        }
-
-
-        if (test30 == false && Input.GetKeyDown(KeyCode.J))
-        {
-          comboscore.score = 0;
-            
-        }
-
-
-        if (test30 == false && Input.GetKeyDown(KeyCode.K))
-        {
-            comboscore.score = 0;
-            
-        }
-
-    }
+    public bool right;
+    public bool left;
+    public bool up;
+    public bool down;
+    public bool canhitornot;
+    public bool destorynote;
+ 
+    
     void Update()
     {
-        if (test30 == false && Input.GetKeyDown(KeyCode.D))
+      
+        // right 
+        if (right == true && Input.GetKeyDown(KeyCode.D))
         {
-        score.score -= 1;
+         destorynote = true;
+        }
+        if( canhitornot != true &&  right != true &&Input.GetKeyDown(KeyCode.D))
+        {
+         score.score -= 3f;
+        }
+        // up
+        if (up == true  && Input.GetKeyDown(KeyCode.F))
+        {
+         destorynote = true;
+        }
+        if( canhitornot != true && up != true && Input.GetKeyDown(KeyCode.F))
+        {
+         score.score -= 3f;
+        }
+        // down
+        if (down == true && Input.GetKeyDown(KeyCode.J))
+        {
+         destorynote = true;
+        }
+        if ( canhitornot != true && down != true &&  Input.GetKeyDown(KeyCode.J))
+        {
+         score.score -= 3f;
+        }
+        // left
+        if (left == true &&  Input.GetKeyDown(KeyCode.K))
+        {
+         destorynote = true;
+        }
+        if (canhitornot != true && left != true && Input.GetKeyDown(KeyCode.K))
+        {
+           
+            score.score -= 3f;
+        }
+    }
 
-        }
-        if (test30 == false && Input.GetKeyDown(KeyCode.F))
+    // a shity script
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+       
+        // unorganized terrible code
+        if (other.gameObject.CompareTag("up note") && gameObject.CompareTag("arrowjudger"))
         {
-         score.score -= 1;
+            up = true;
+            canhitornot = true;
+        }
+        if (other.gameObject.CompareTag("down note") && gameObject.CompareTag("arrowjudger"))
+        {
+            down = true;
+            canhitornot = true;
         }
 
-        if (test30 == false && Input.GetKeyDown(KeyCode.J))
+        if (other.gameObject.CompareTag("left note") && gameObject.CompareTag("arrowjudger"))
         {
-         score.score -= 1;
+          left = true;
+            canhitornot = true;
         }
 
-        if (test30 == false && Input.GetKeyDown(KeyCode.K))
+        if (other.gameObject.CompareTag("right note")&& gameObject.CompareTag("arrowjudger"))
         {
-         score.score -= 1;
+            right = true;
+            canhitornot = true;
         }
+    }
+    
+    public void OnTriggerStay2D(Collider2D collision)
+    {
+        if(destorynote == true)
+        {
+            comboscore.score += 1;
+            score.score += 50;
+            collision.gameObject.SetActive(false);
+        }
+       
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!collision.gameObject.CompareTag("right note") && gameObject.CompareTag("arrowjudger"))
+        {
+            up = false;
+            canhitornot = false;
+        }
+        if (collision.gameObject)
+        {
+            destorynote = false;
+        }
+        if (!collision.gameObject.CompareTag("up note") && gameObject.CompareTag("arrowjudger"))
+        {
+            down = false;
+            canhitornot = false;
+        }
+        if (!collision.gameObject.CompareTag("down note") && gameObject.CompareTag("arrowjudger"))
+        {
+            left = false;
+            canhitornot = false;
+        }
+
+        if (!collision.gameObject.CompareTag("left note") && gameObject.CompareTag("arrowjudger"))
+        {
+            right = false;
+            canhitornot = false;
+        }
+
+
     }
 }

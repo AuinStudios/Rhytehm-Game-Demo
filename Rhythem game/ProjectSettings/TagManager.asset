@@ -4,17 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - left
-  - down
-  - up
-  - right
   - missed
-  - note right
+  - combo
+  - arrowjudger
+  - right note
+  - left note
   - up note
   - down note
-  - left note
-  - combo
-  - nospam
   layers:
   - Default
   - TransparentFX
