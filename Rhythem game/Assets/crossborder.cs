@@ -4,55 +4,65 @@ using UnityEngine;
 
 public class crossborder : MonoBehaviour
 { 
-    public Score score;
-    public Score comboscore;
-    public bool right;
-    public bool left;
-    public bool up;
-    public bool down;
-    public bool canhitornot;
-    public bool destorynote;
+ // compoments ------------------------------------------
+ public Score score;
+ public Score comboscore;
+ public Animator effects;
+ //static bool -------------------------------------------
+ public static bool donotmiss;
+ // bools ------------------------------------------------
+ public bool right;
+ public bool left;
+ public bool up;
+ public bool down;
+ public bool destorynote;
+ // ------------------------------------------------------
  
-    
     void Update()
     {
-      
         // right 
         if (right == true && Input.GetKeyDown(KeyCode.D))
         {
          destorynote = true;
+       
         }
-        if( canhitornot != true &&  right != true &&Input.GetKeyDown(KeyCode.D))
+        else if( donotmiss != true  &&  right != true &&Input.GetKeyDown(KeyCode.D))
         {
-         score.score -= 3f;
+            comboscore.score = 0;
+            score.score -= 7.5f;
         }
         // up
         if (up == true  && Input.GetKeyDown(KeyCode.F))
         {
          destorynote = true;
+         
         }
-        if( canhitornot != true && up != true && Input.GetKeyDown(KeyCode.F))
+        else if( donotmiss!= true  && up != true && Input.GetKeyDown(KeyCode.F))
         {
-         score.score -= 3f;
+         comboscore.score = 0;
+         score.score -= 7.5f;
         }
         // down
         if (down == true && Input.GetKeyDown(KeyCode.J))
         {
          destorynote = true;
+         
         }
-        if ( canhitornot != true && down != true &&  Input.GetKeyDown(KeyCode.J))
+        else if ( donotmiss!= true && down != true &&  Input.GetKeyDown(KeyCode.J))
         {
-         score.score -= 3f;
+            comboscore.score = 0;
+            score.score -= 7.5f;
         }
         // left
         if (left == true &&  Input.GetKeyDown(KeyCode.K))
         {
          destorynote = true;
+        
         }
-        if (canhitornot != true && left != true && Input.GetKeyDown(KeyCode.K))
+        else if (donotmiss != true  && left != true && Input.GetKeyDown(KeyCode.K))
         {
-           
-            score.score -= 3f;
+            comboscore.score = 0;
+            score.score -= 7.5f;
         }
     }
 
@@ -64,31 +74,32 @@ public class crossborder : MonoBehaviour
         if (other.gameObject.CompareTag("up note") && gameObject.CompareTag("arrowjudger"))
         {
             up = true;
-            canhitornot = true;
+            donotmiss = true;
         }
         if (other.gameObject.CompareTag("down note") && gameObject.CompareTag("arrowjudger"))
         {
             down = true;
-            canhitornot = true;
+            donotmiss = true;
         }
 
         if (other.gameObject.CompareTag("left note") && gameObject.CompareTag("arrowjudger"))
         {
           left = true;
-            canhitornot = true;
+          donotmiss = true;
         }
 
         if (other.gameObject.CompareTag("right note")&& gameObject.CompareTag("arrowjudger"))
         {
             right = true;
-            canhitornot = true;
+            donotmiss = true;
         }
     }
     
     public void OnTriggerStay2D(Collider2D collision)
     {
         if(destorynote == true)
-        {
+        {  
+            effects.SetTrigger("Whenpressbutten");
             comboscore.score += 1;
             score.score += 50;
             collision.gameObject.SetActive(false);
@@ -101,7 +112,7 @@ public class crossborder : MonoBehaviour
         if (!collision.gameObject.CompareTag("right note") && gameObject.CompareTag("arrowjudger"))
         {
             up = false;
-            canhitornot = false;
+            donotmiss = false;
         }
         if (collision.gameObject)
         {
@@ -110,18 +121,18 @@ public class crossborder : MonoBehaviour
         if (!collision.gameObject.CompareTag("up note") && gameObject.CompareTag("arrowjudger"))
         {
             down = false;
-            canhitornot = false;
+            donotmiss = false;
         }
         if (!collision.gameObject.CompareTag("down note") && gameObject.CompareTag("arrowjudger"))
         {
             left = false;
-            canhitornot = false;
+            donotmiss = false;
         }
 
         if (!collision.gameObject.CompareTag("left note") && gameObject.CompareTag("arrowjudger"))
         {
             right = false;
-            canhitornot = false;
+            donotmiss = false;
         }
 
 
