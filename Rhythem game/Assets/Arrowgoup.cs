@@ -12,7 +12,7 @@ public class Arrowgoup : MonoBehaviour
     void Update()
     {
         //   force thing
-        rig.AddForce(transform.up * 10000 * Time.deltaTime);
+        rig.AddForce(transform.up * 20000 * Time.deltaTime);
         if (rig.velocity.magnitude <= 100)
         {
             rig.velocity = Vector3.ClampMagnitude(rig.velocity, 1000f);

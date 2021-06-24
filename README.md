@@ -10,3 +10,7 @@
 
 ## (24/06/2021)
 ### im lazy this month but i managed to finish the  missing system and added some effects when u hit it and  an effect when u get a  50 combo streak
+
+
+
+1) im gonna  take  a break from this game because i dont know how to chart the game
