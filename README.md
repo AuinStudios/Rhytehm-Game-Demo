@@ -14,3 +14,7 @@
 
 
 1) im gonna  take  a break from this game because i dont know how to chart the game
+
+
+##(??/06/2021)
+### i forgot to save this in github i remeber the month but i forgot the date but me and my cosin was makeing  rhythem game by detecting audio we couldnt finish it maybe next time
